@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Oferta dla firm</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+      <a class="navbar-brand" th:href="@{/}">Mobilna wulkanizacja</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/about}">O nas</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Kontakt</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/faq}">FAQ</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Oferta</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+              <li><a class="dropdown-item" th:href="@{/offer}">Dla osób fizycznych</a></li>
+              <li><a class="dropdown-item" th:href="@{/companies-offer}">Dla firm</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/make-appointment}">Umów Wizytę</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page content-->
+  <section class="py-5">
+    <div class="container px-5 my-5">
+      <h1 class="fw-bolder mb-4">Nasza oferta dla firm</h1>
+      <p class="lead mb-4">Oferujemy profesjonalne usługi mobilnej wulkanizacji dostępne 24/7. Nasz wykwalifikowany zespół szybko i sprawnie naprawi opony w Twoim pojeździe, niezależnie od tego, gdzie się znajdujesz.</p>
+
+      <div class="col-md-6">
+        <h2 class="h5">Dla Firm</h2>
+        <p class="mb-0">Nasze specjalne oferty dla firm obejmują pełną obsługę w zakresie konserwacji opon, naprawy i wymiany dla flot pojazdów. Zadbamy o to, aby Twoje auta zawsze były w pełnej gotowości, co pozwoli uniknąć przestojów w pracy.</p>
+        <p class="mb-0">Oferujemy elastyczne umowy serwisowe dostosowane do potrzeb Twojej firmy, dzięki czemu masz pewność, że Twoja flota będzie regularnie serwisowana w dogodnym dla Ciebie czasie i miejscu.</p>
+        <p><strong>Cena: ustalana indywidualnie w zależności od zakresu usług i liczby pojazdów</strong></p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="h5">Dlaczego warto współpracować z nami?</h2>
+        <ul>
+          <li>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-telephone"></i></div>
+            Całodobowa dostępność – serwis 24/7
+          </li>
+          <li>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-clock"></i></div>
+            Szybki czas reakcji i mobilność
+          </li>
+          <li>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person"></i></div>
+            Indywidualne podejście do każdego klienta
+          </li>
+          <li>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-arrow-clockwise"></i></div>
+            Regularne przeglądy i konserwacja floty
+          </li>
+          <li>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-arrow-down"></i></div>
+            Minimalizacja przestojów floty
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- Call to action-->
+      <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+        <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+          <div class="mb-4 mb-xl-0">
+            <div class="fs-3 fw-bold text-white">Kontakt i rezerwacja</div>
+            <div class="text-white-50 me-5">Aby zamówić usługę, zadzwoń do nas pod numer <a href="tel:+48123456789" class="text-decoration-none text-white-50"><strong>+48 123 456 789</strong></a>, napisz do nas na maila: <a href="mailto:support@domain.com" class="text-decoration-none text-white-50"><strong>support@domain.com</strong></a> lub umów wizytę na naszej stronie. Jesteśmy dostępni 24/7, aby szybko odpowiedzieć na Twoje potrzeby.</div>
+          </div>
+          <div class="ms-xl-4">
+            <div class="input-group mb-2">
+              <button class="btn btn-outline-light" id="button-newsletter" type="button">Umów Wizytę</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+
+</main>
+<!-- Footer-->
+<footer class="bg-dark py-4 mt-auto">
+  <div class="container px-5">
+    <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+      <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2023</div></div>
+      <div class="col-auto">
+        <a class="link-light small" href="#!">Privacy</a>
+        <span class="text-white mx-1">&middot;</span>
+        <a class="link-light small" href="#!">Terms</a>
+        <span class="text-white mx-1">&middot;</span>
+        <a class="link-light small" href="#!">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
