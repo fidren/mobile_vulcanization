@@ -12,6 +12,6 @@ import java.util.List;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    @Query("SELECT c FROM Client c WHERE c.date >= :startOfDay AND c.date < :endOfDay")
+    @Query("SELECT c FROM Client c WHERE c.appointmentDate.date >= :startOfDay AND c.appointmentDate.date < :endOfDay")
     List<Client> findClientsByDateRange(@Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
 }
