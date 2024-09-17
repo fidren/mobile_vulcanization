@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "company_clients")
+@Table(name = "clients")
 public class CompanyClient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class CompanyClient {
     private String name;
     private String email;
     private String phone;
-    private String NIP;
+    private String nip;
     private String address;
     private String description;
 }
