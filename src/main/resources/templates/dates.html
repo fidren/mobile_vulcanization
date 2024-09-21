@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dodaj Datę - Admin Panel</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body class="sb-nav-fixed">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" th:href="@{/}">Mobilna wulkanizacja</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" th:href="@{/dates}">Daty</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/appointments}">Wizyty</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" th:onclick="'event.preventDefault(); document.getElementById(\'logoutForm\').submit();'">Wyloguj się</a></li>
+                <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--usuwanie starych dat-->
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Usuń daty</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p>Usuń wszytstkie stare daty ze statusem wolne</p>
+            <button class="btn btn-primary">Usuń</button>
+        </div>
+    </div>
+</div>
+<!--Dodawanie dat-->
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dodaj Datę Wizyty</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form th:action="@{/admin/add-date}" method="post">
+                <div class="mb-3">
+                    <label for="appointmentDate" class="form-label">Data Wizyty</label>
+                    <input type="datetime-local" class="form-control w-25" id="appointmentDate" name="appointmentDate" required>
+                </div>
+                <div class="mb-3">
+                    <p>Czy wolne?</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                        <label class="form-check-label" for="inlineRadio1">Tak</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Nie</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Dodaj Datę</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--tabela-->
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4 mb-4">Daty</h1>
+<!--            Filtry-->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault"><b>Pokaż filtry</b></label>
+                    </div>
+
+                    <div id="filterDiv" style="display: none;">
+                        <div class="mb-3">
+                            <label for="filterDate" class="form-label">Wybierz datę</label>
+                            <input type="date" class="form-control w-25" id="filterDate" name="filterDate">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">Tylko Aktualne daty</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Zastosuj filtry</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela dat -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Daty
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple" class="table table-bordered">
+                        <thead>
+                        <th>Data</th>
+                        <th>Wolna</th>
+                        <th>Akcje</th>
+                        </thead>
+                        <tbody>
+                        <!--                        <tr th:each="appointment : ${appointments}">&ndash;&gt;-->
+                        <!--                    <td th:text="${appointment.date}"></td>-->
+                        <!--                    <td th:text="${appointment.client.name}"></td>-->
+                        <!--                    <td th:text="${appointment.client.address}"></td>-->
+                        <!--                    <td th:text="${appointment.client.phone}"></td>-->
+                        <!--                    <td th:text="${appointment.client.category}"></td>-->
+                        <!--                </tr>-->
+                        <tr>
+                            <td>13-01-2017 17:09:42</td>
+                            <td>tak</td>
+                            <td><button class="btn-edit">Edytuj</button></td>
+                        </tr>
+                        <tr>
+                            <td>13-01-2025 17:09:42</td>
+                            <td>tak</td>
+                            <td><button class="btn-edit">Edytuj</button></td>
+                        </tr>
+                        <tr>
+                            <td>13-11-2024 17:09:42</td>
+                            <td>tak</td>
+                            <td><button class="btn-edit">Edytuj</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    // Funkcja do pokazywania/ukrywania formularza
+    document.getElementById('flexSwitchCheckDefault').addEventListener('change', function() {
+        var filterDiv = document.getElementById('filterDiv');
+        if (this.checked) {
+            filterDiv.style.display = 'block'; // Pokaż formularz
+        } else {
+            filterDiv.style.display = 'none';  // Ukryj formularz
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
