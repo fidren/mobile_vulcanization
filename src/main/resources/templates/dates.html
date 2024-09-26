@@ -13,7 +13,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 </head>
-<body class="sb-nav-fixed">
+<body class="d-flex flex-column">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
@@ -31,34 +31,25 @@
         </div>
     </div>
 </nav>
-<!--usuwanie starych dat-->
-<div class="container-fluid px-4">
-    <h1 class="mt-4">Usuń daty</h1>
-    <div class="card mb-4">
-        <div class="card-body">
-            <p>Usuń wszytstkie stare daty ze statusem wolne</p>
-            <button class="btn btn-primary">Usuń</button>
-        </div>
-    </div>
-</div>
-<!--Dodawanie dat-->
+<!-- Adding Dates-->
 <div class="container-fluid px-4">
     <h1 class="mt-4">Dodaj Datę Wizyty</h1>
     <div class="card mb-4">
         <div class="card-body">
-            <form th:action="@{/admin/add-date}" method="post">
+            <form th:action="@{/addDate}" th:object="${dateRequest}" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="mb-3">
                     <label for="appointmentDate" class="form-label">Data Wizyty</label>
-                    <input type="datetime-local" class="form-control w-25" id="appointmentDate" name="appointmentDate" required>
+                    <input type="datetime-local" class="form-control w-25" id="appointmentDate" name="date" required>
                 </div>
                 <div class="mb-3">
                     <p>Czy wolne?</p>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                        <input class="form-check-input" type="radio" name="isFree" id="inlineRadio1" value="true" checked>
                         <label class="form-check-label" for="inlineRadio1">Tak</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <input class="form-check-input" type="radio" name="isFree" id="inlineRadio2" value="false">
                         <label class="form-check-label" for="inlineRadio2">Nie</label>
                     </div>
                 </div>
@@ -68,12 +59,12 @@
     </div>
 </div>
 
-<!--tabela-->
+<!--table-->
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4 mb-4">Daty</h1>
-<!--            Filtry-->
+            <!-- Filters -->
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="form-check form-switch mb-3">
@@ -81,7 +72,7 @@
                         <label class="form-check-label" for="flexSwitchCheckDefault"><b>Pokaż filtry</b></label>
                     </div>
 
-                    <div id="filterDiv" style="display: none;">
+                    <div id="filterDateDiv" style="display: none;">
                         <div class="mb-3">
                             <label for="filterDate" class="form-label">Wybierz datę</label>
                             <input type="date" class="form-control w-25" id="filterDate" name="filterDate">
@@ -90,47 +81,68 @@
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">Tylko Aktualne daty</label>
                         </div>
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="isFreeFilter" id="inlineRadioFilter1" value="all" checked>
+                                <label class="form-check-label" for="inlineRadio1">Wolne i zajęte</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="isFreeFilter" id="inlineRadioFilter2" value="onlyFree">
+                                <label class="form-check-label" for="inlineRadio2">Tylko wolne</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="isFreeFilter" id="inlineRadioFilter3" value="onlyOccupied">
+                                <label class="form-check-label" for="inlineRadio2">Tylko zajęte</label>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Zastosuj filtry</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Tabela dat -->
+            <!-- Modal to edit date -->
+            <div class="modal fade" id="editDateModal" tabindex="-1" aria-labelledby="editDateModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editDateModalLabel">Edytuj datę</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" id="csrfToken">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="originalDate" class="form-label">Data</label>
+                                <input type="datetime-local" class="form-control" id="originalDate" disabled>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="editIsFree">
+                                <label class="form-check-label" for="editIsFree">Wolna</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                            <button type="button" class="btn btn-primary" onclick="saveEditedDate()">Zapisz zmiany</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteDate()">Usuń datę</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table of data -->
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
                     Daty
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple" class="table table-bordered">
+                    <table id="datatablesDate" class="table table-bordered">
                         <thead>
-                        <th>Data</th>
-                        <th>Wolna</th>
-                        <th>Akcje</th>
+                            <th>Data</th>
+                            <th>Wolna</th>
+                            <th>Akcje</th>
                         </thead>
                         <tbody>
-                        <!--                        <tr th:each="appointment : ${appointments}">&ndash;&gt;-->
-                        <!--                    <td th:text="${appointment.date}"></td>-->
-                        <!--                    <td th:text="${appointment.client.name}"></td>-->
-                        <!--                    <td th:text="${appointment.client.address}"></td>-->
-                        <!--                    <td th:text="${appointment.client.phone}"></td>-->
-                        <!--                    <td th:text="${appointment.client.category}"></td>-->
-                        <!--                </tr>-->
-                        <tr>
-                            <td>13-01-2017 17:09:42</td>
-                            <td>tak</td>
-                            <td><button class="btn-edit">Edytuj</button></td>
-                        </tr>
-                        <tr>
-                            <td>13-01-2025 17:09:42</td>
-                            <td>tak</td>
-                            <td><button class="btn-edit">Edytuj</button></td>
-                        </tr>
-                        <tr>
-                            <td>13-11-2024 17:09:42</td>
-                            <td>tak</td>
-                            <td><button class="btn-edit">Edytuj</button></td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -138,17 +150,90 @@
         </div>
     </main>
 </div>
+<!-- Footer-->
+<footer class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+            <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2023</div></div>
+            <div class="col-auto">
+                <a class="link-light small" href="#!">Privacy</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Terms</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
 <script>
-    // Funkcja do pokazywania/ukrywania formularza
-    document.getElementById('flexSwitchCheckDefault').addEventListener('change', function() {
-        var filterDiv = document.getElementById('filterDiv');
-        if (this.checked) {
-            filterDiv.style.display = 'block'; // Pokaż formularz
-        } else {
-            filterDiv.style.display = 'none';  // Ukryj formularz
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterDateDiv = document.getElementById("filterDateDiv");
+        const showFiltersSwitch = document.getElementById("flexSwitchCheckDefault");
+        const applyFiltersButton = document.querySelector("#filterDateDiv button");
+
+        // Call fetch request to fetch all data at the beginning
+        fetch('/allDates')
+            .then(response => response.json())
+            .then(data => populateDateTable(data))
+            .catch(error => console.error('Błąd podczas pobierania danych:', error));
+
+        // Show or hide filters
+        showFiltersSwitch.addEventListener("change", function () {
+            filterDateDiv.style.display = this.checked ? "block" : "none";
+        });
+
+        applyFiltersButton.addEventListener("click", function () {
+            applyFiltersDate();
+        });
+
+        // Function of retrieving data from the database based on filters
+        function applyFiltersDate() {
+            const filterDate = document.getElementById("filterDate").value;
+            const onlyCurrentDates = document.getElementById("flexCheckDefault").checked;
+            const isFreeFilter = document.querySelector('input[name="isFreeFilter"]:checked').value;
+
+            // Default URL (no filters)
+            let url = '/allDates';
+
+            if (filterDateDiv.style.display === 'block') {
+                url = '/filteredDates';
+                // Add parameters to URL
+                const params = new URLSearchParams();
+
+                // Add parameter for date if selected
+                if (filterDate) {
+                    params.append('date', filterDate);
+                }
+
+                // Add parameter for current dates only
+                if (onlyCurrentDates) {
+                    params.append('isCurrent', true);
+                } else {
+                    params.append('isCurrent', false);
+                }
+
+                // Add parameter for term freedom status
+                if (isFreeFilter === 'onlyFree') {
+                    params.append('isFree', true);
+                } else if (isFreeFilter === 'onlyOccupied') {
+                    params.append('isFree', false);
+                }
+
+                // If there are any parameters, add them to the URL
+                if (params.toString()) {
+                    url += '?' + params.toString();
+                }
+
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => populateDateTable(data))
+                .catch(error => console.error('Błąd podczas pobierania danych:', error));
         }
     });
 </script>
+<script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

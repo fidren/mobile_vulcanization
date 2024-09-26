@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -49,124 +49,126 @@
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
-                        <!-- Formularz umawiania wizyty -->
-                        <form id="appointmentForm">
-                            <!-- Typ klienta (osoba fizyczna lub firma) -->
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="clientType" onchange="toggleFormFields()">
-                                    <option value="" selected disabled>Wybierz typ klienta</option>
-                                    <option value="person">Osoba fizyczna</option>
-                                    <option value="company">Firma</option>
-                                </select>
-                                <label for="clientType">Typ klienta</label>
+                        <!-- Appointment Form -->
+                        <form id="appointmentForm" th:action="@{/addClient}" th:object="${clientRequest}" method="post">
+                            <!-- Type of client (physical person or company) -->
+                            <div class="mb-3 text-center">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="clientType" id="clientTypePerson" value="person" onchange="toggleFormFields()" required>
+                                    <label class="form-check-label" for="clientTypePerson">Klient Fizyczny</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="clientType" id="clientTypeCompany" value="company" onchange="toggleFormFields()" required>
+                                    <label class="form-check-label" for="clientTypeCompany">Klient Firmowy</label>
+                                </div>
                             </div>
 
-                            <!-- Pola dla osoby fizycznej -->
+                            <!-- Fields for personal clients-->
                             <div id="personFields" style="display:none;">
-                                <!-- Kalendarz -->
+                                <!-- Calendar -->
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="appointmentDate" />
+                                    <input type="date" class="form-control" id="appointmentDate"  onchange="fetchAvailableTimes()"/>
                                     <label for="appointmentDate">Wybierz datę wizyty</label>
                                 </div>
-                                <!-- Wolne terminy (z bazy danych) -->
+                                <!-- Free dates of appointment (from database) -->
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="availableTimes">
+                                    <select class="form-select" id="availableTimes" name="appointmentDate">
                                         <option value="" selected disabled>Wybierz wolny termin</option>
-                                        <!-- Wolne terminy będą pobierane z bazy danych -->
+
                                     </select>
                                     <label for="availableTimes">Wybierz godzinę wizyty</label>
                                 </div>
-                                <!-- Dane osobowe -->
+                                <!-- Personal data -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="fullName" type="text" placeholder="Imię i nazwisko" data-sb-validations="required"/>
+                                    <input class="form-control" id="fullName" name="name" type="text" placeholder="Imię i nazwisko" data-sb-validations="required"/>
                                     <label for="fullName">Imię i nazwisko</label>
                                     <div class="invalid-feedback" data-sb-feedback="fullName:required">Imię i nazwisko jest wymagane.</div>
                                 </div>
-                                <!-- adres Email -->
+                                <!-- address Email -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email"/>
                                     <label for="email">Adres Email</label>
                                     <div class="invalid-feedback" data-sb-feedback="email:required">Adres email jest wymagany.</div>
                                     <div class="invalid-feedback" data-sb-feedback="email:email">Adres e-mail jest nieprawidłowy.</div>
                                 </div>
-                                <!-- Numer telefonu-->
+                                <!-- Phone Number -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                    <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required"/>
                                     <label for="phone">Phone number</label>
                                     <div class="invalid-feedback" data-sb-feedback="phone:required">Numer telefonu jest wymagany.</div>
                                 </div>
-                                <!-- Adres -->
+                                <!-- Address -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="address" type="text" placeholder="Adres" data-sb-validations="required" />
+                                    <input class="form-control" id="address" name="address" type="text" placeholder="Adres" data-sb-validations="required"/>
                                     <label for="address">Adres</label>
                                     <div class="invalid-feedback" data-sb-feedback="address:required">Adres jest wymagany.</div>
                                 </div>
-                                <!-- Kategoria usługi -->
+                                <!-- Service Category -->
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="serviceCategory" data-sb-validations="required">
+                                    <select class="form-select" id="serviceCategory" name="serviceCategory" data-sb-validations="required">
                                         <option value="" selected disabled>Wybierz kategorię usługi</option>
-                                        <option value="wulkanizacja">Wymiana opon</option>
-                                        <option value="wulkanizacja">Naprawa przebitych opon</option>
-                                        <option value="wulkanizacja">Wyważanie kół</option>
-                                        <option value="wulkanizacja">Sezonowa wymiana opon</option>
-                                        <option value="wulkanizacja">Awaryjne wsparcie na drodze</option>
-                                        <option value="serwisOpon">Inne usługi</option>
+                                        <option value="Wymiana opon">Wymiana opon</option>
+                                        <option value="Naprawa przebitych opon">Naprawa przebitych opon</option>
+                                        <option value="Wyważanie kół">Wyważanie kół</option>
+                                        <option value="Sezonowa wymiana opon">Sezonowa wymiana opon</option>
+                                        <option value="Awaryjne wsparcie na drodze">Awaryjne wsparcie na drodze</option>
+                                        <option value="Inne usługi">Inne usługi</option>
                                     </select>
                                     <label for="serviceCategory">Kategoria usługi</label>
                                     <div class="invalid-feedback" data-sb-feedback="serviceCategory:required">Kategoria jest wymagana.</div>
                                 </div>
-                                <!-- Opis problemu -->
+                                <!-- Description of the problem -->
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="problemDescriptionPerson" placeholder="Opis problemu" style="height: 10rem" data-sb-validations="required"></textarea>
+                                    <textarea class="form-control" id="problemDescriptionPerson" name="problemDescription"  placeholder="Opis problemu" style="height: 10rem" data-sb-validations="required"></textarea>
                                     <label for="problemDescriptionPerson">Opis problemu</label>
                                     <div class="invalid-feedback" data-sb-feedback="problemDescriptionPerson:required">Opis problemu jest wymagany.</div>
                                 </div>
                             </div>
 
-                            <!-- Pola dla firmy -->
+                            <!-- Fields for company clients -->
                             <div id="companyFields" style="display:none;">
-                                <!-- Nazwa firmy -->
+                                <!-- Company name -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="companyName" type="text" placeholder="Nazwa firmy" data-sb-validations="required" />
+                                    <input class="form-control" id="companyName" name="name" type="text" placeholder="Nazwa firmy" data-sb-validations="required" />
                                     <label for="companyName">Nazwa firmy</label>
                                     <div class="invalid-feedback" data-sb-feedback="companyName:required">Nazwa firmy jest wymagana.</div>
                                 </div>
-                                <!-- adres Email -->
+                                <!-- address Email -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="emailCompany" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                    <input class="form-control" id="emailCompany" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
                                     <label for="emailCompany">Adres Email</label>
                                     <div class="invalid-feedback" data-sb-feedback="emailCompany:required">Adres email jest wymagany.</div>
                                     <div class="invalid-feedback" data-sb-feedback="emailCompany:email">Adres e-mail jest nieprawidłowy.</div>
                                 </div>
-                                <!-- Numer telefonu-->
+                                <!-- Phone Number -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="phoneCompany" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                    <input class="form-control" id="phoneCompany" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
                                     <label for="phoneCompany">Numer telefonu</label>
                                     <div class="invalid-feedback" data-sb-feedback="phoneCompany:required">Numer telefonu jest wymagany.</div>
                                 </div>
                                 <!-- NIP -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="companyNIP" type="text" placeholder="NIP" data-sb-validations="required" />
+                                    <input class="form-control" id="companyNIP" name="nip" type="text" placeholder="NIP" data-sb-validations="required" />
                                     <label for="companyNIP">NIP</label>
                                     <div class="invalid-feedback" data-sb-feedback="companyNIP:required">NIP jest wymagany.</div>
                                 </div>
-                                <!-- Adres firmy -->
+                                <!-- Company address -->
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="companyAddress" type="text" placeholder="Adres firmy" data-sb-validations="required" />
+                                    <input class="form-control" id="companyAddress" name="address" type="text" placeholder="Adres firmy" data-sb-validations="required" />
                                     <label for="companyAddress">Adres firmy</label>
                                     <div class="invalid-feedback" data-sb-feedback="companyAddress:required">Adres firmy jest wymagany.</div>
                                 </div>
-                                <!-- Opis problemu -->
+                                <!-- Description of the problem -->
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="problemDescriptionCompany" placeholder="Opis problemu" style="height: 10rem" data-sb-validations="required"></textarea>
+                                    <textarea class="form-control" id="problemDescriptionCompany" name="problemDescription" placeholder="Opis problemu" style="height: 10rem" data-sb-validations="required"></textarea>
                                     <label for="problemDescriptionCompany">Opis problemu</label>
                                     <div class="invalid-feedback" data-sb-feedback="problemDescriptionCompany:required">Opis problemu jest wymagany.</div>
                                 </div>
                             </div>
 
-                            <!-- Przycisk wysyłania -->
+                            <!-- Submit button -->
                             <div class="d-grid">
-                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Umów Wizytę</button>
+                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit" disabled>Umów Wizytę</button>
                             </div>
                         </form>
                     </div>
@@ -191,20 +193,29 @@
     </div>
 </footer>
 <script>
-    function toggleFormFields() {
-        var clientType = document.getElementById("clientType").value;
-        document.getElementById("personFields").style.display = clientType === "person" ? "block" : "none";
-        document.getElementById("companyFields").style.display = clientType === "company" ? "block" : "none";
-    }
+    document.getElementById("appointmentForm").addEventListener("submit", function (){
+        const inputs = this.querySelectorAll("input, textarea, select");
+        let allFieldsFilled = true;
+
+        inputs.forEach(input => {
+            if (input.hasAttribute("required") && input.value.trim() === "") {
+                allFieldsFilled = false;
+                input.classList.add("is-invalid"); // Add class to display error
+            } else {
+                input.classList.remove("is-invalid"); // Remove error class if field is filled
+            }
+        });
+
+        if (!allFieldsFilled) {
+            event.preventDefault(); // Stop sending form
+            alert("Proszę wypełnić wszystkie wymagane pola.");
+        }
+    });
 </script>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-<!-- * *                               SB Forms JS                               * *-->
-<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>

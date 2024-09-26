@@ -16,7 +16,6 @@
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <!-- Navigation-->
-    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
             <a class="navbar-brand" th:href="@{/}">Mobilna wulkanizacja</a>
@@ -34,6 +33,7 @@
                             <li><a class="dropdown-item" th:href="@{/companies-offer}">Dla firm</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/make-appointment}">Umów Wizytę</a></li>
                 </ul>
             </div>
         </div>
@@ -42,64 +42,307 @@
     <section class="py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">Frequently Asked Questions</h1>
-                <p class="lead fw-normal text-muted mb-0">How can we help you?</p>
+                <h1 class="fw-bolder">Najczęściej zadawane pytania</h1>
+                <p class="lead fw-normal text-muted mb-0">Jak mogę Ci pomóc?</p>
             </div>
             <div class="row gx-5">
                 <div class="col-xl-8">
-                    <!-- FAQ Accordion 1-->
-                    <h2 class="fw-bolder mb-3">Account &amp; Billing</h2>
-                    <div class="accordion mb-5" id="accordionExample">
+                    <!-- FAQ Accordion 1: Usługi mobilnej wulkanizacji -->
+                    <h2 class="fw-bolder mb-3">Usługi mobilnej wulkanizacji</h2>
+                    <div class="accordion mb-5" id="accordionServices">
                         <div class="accordion-item">
-                            <h3 class="accordion-header" id="headingOneAccordionOne"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How do I create an account?</button></h3>
-                            <div class="accordion-collapse collapse show" id="collapseOne" aria-labelledby="headingOneAccordionOne" data-bs-parent="#accordionExample">
+                            <h3 class="accordion-header" id="headingOneAccordionServices"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneServices" aria-expanded="true" aria-controls="collapseOneServices">Czym jest mobilna wulkanizacja?</button></h3>
+                            <div class="accordion-collapse collapse show" id="collapseOneServices" aria-labelledby="headingOneAccordionServices" data-bs-parent="#accordionServices">
                                 <div class="accordion-body">
-                                    <strong>To create an account,</strong> simply click on the "Sign Up" button at the top of the page, fill in your details, and follow the instructions. You will need a valid email address and a strong password. Once your account is created, you can manage bookings, payments, and view your rental history.
+                                    <strong>Mobilna wulkanizacja</strong> to usługa naprawy i wymiany opon bezpośrednio w miejscu, gdzie znajduje się Twój pojazd. Ekipa mobilna przyjeżdża na miejsce awarii, dzięki czemu nie musisz samodzielnie transportować pojazdu do warsztatu.
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item">
-                            <h3 class="accordion-header" id="headingTwoAccordionOne"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">How do I update my payment information?</button></h3>
-                            <div class="accordion-collapse collapse" id="collapseTwo" aria-labelledby="headingTwoAccordionOne" data-bs-parent="#accordionExample">
+                            <h3 class="accordion-header" id="headingTwoAccordionService"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoServices" aria-expanded="false" aria-controls="collapseTwoServices">Jakie usługi oferuje mobilna wulkanizacja?</button></h3>
+                            <div class="accordion-collapse collapse show" id="collapseTwoServices" aria-labelledby="headingTwoAccordionServices" data-bs-parent="#accordionServices">
                                 <div class="accordion-body">
-                                    <strong>You can update your payment information</strong> by logging into your account and navigating to the "Billing" section. Here, you can add, remove, or modify your payment methods. All payment information is securely encrypted for your protection.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h3 class="accordion-header" id="headingThreeAccordionOne"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">How do I view my rental history?</button></h3>
-                            <div class="accordion-collapse collapse" id="collapseThree" aria-labelledby="headingThreeAccordionOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>Your rental history</strong> is accessible from your account dashboard. Navigate to the "Rentals" tab, where you can see a detailed list of all your past and current rentals, along with invoices and rental dates.
+                                    <strong>Mobilna wulkanizacja</strong> oferuje usługi takie jak naprawa opon, wymiana opon, wyważanie kół, naprawa felg oraz sezonowa wymiana opon, wszystko w miejscu wskazanym przez klienta.
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- FAQ Accordion 2-->
-                    <h2 class="fw-bolder mb-3">Website Issues</h2>
-                    <div class="accordion mb-5 mb-xl-0" id="accordionExample2">
+                    <!-- FAQ Accordion: Czas i miejsce realizacji usługi -->
+                    <h2 class="fw-bolder mb-3">Czas i miejsce realizacji usługi</h2>
+                    <div class="accordion mb-5 mb-xl-0" id="accordionTimeAndLocation">
                         <div class="accordion-item">
-                            <h3 class="accordion-header" id="headingOneAccordionTwo"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">I forgot my password, how do I reset it?</button></h3>
-                            <div class="accordion-collapse collapse show" id="collapseOne2" aria-labelledby="headingOneAccordionTwo" data-bs-parent="#accordionExample2">
+                            <h3 class="accordion-header" id="headingOneAccordionTimeAndLocation">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneTimeAndLocation" aria-expanded="true" aria-controls="collapseOneTimeAndLocation">
+                                    Jak szybko mogę oczekiwać przyjazdu ekipy mobilnej wulkanizacji?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse show" id="collapseOneTimeAndLocation" aria-labelledby="headingOneAccordionTimeAndLocation" data-bs-parent="#accordionTimeAndLocation">
                                 <div class="accordion-body">
-                                    <strong>If you've forgotten your password,</strong> click on the "Forgot Password" link on the login page. Enter your email address, and we'll send you a link to reset your password. Make sure to choose a strong, unique password for your account security.
+                                    <strong>Czas dojazdu</strong> ekipy mobilnej wulkanizacji zazwyczaj wynosi od 30 do 60 minut, w zależności od aktualnego ruchu drogowego i odległości od naszej bazy. Dokładny czas zostanie podany po zgłoszeniu usługi.
                                 </div>
                             </div>
                         </div>
+
                         <div class="accordion-item">
-                            <h3 class="accordion-header" id="headingTwoAccordionTwo"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">Why can't I access certain pages?</button></h3>
-                            <div class="accordion-collapse collapse" id="collapseTwo2" aria-labelledby="headingTwoAccordionTwo" data-bs-parent="#accordionExample2">
+                            <h3 class="accordion-header" id="headingTwoAccordionTimeAndLocation">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoTimeAndLocation" aria-expanded="false" aria-controls="collapseTwoTimeAndLocation">
+                                    Czy usługa jest dostępna w mojej lokalizacji?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseTwoTimeAndLocation" aria-labelledby="headingTwoAccordionTimeAndLocation" data-bs-parent="#accordionTimeAndLocation">
                                 <div class="accordion-body">
-                                    <strong>If you're unable to access certain pages,</strong> it may be due to your account status or browser settings. Ensure that you are logged in and that your browser allows cookies and JavaScript. If the problem persists, contact our support team for assistance.
+                                    <strong>Nasza mobilna wulkanizacja</strong> obsługuje większość miast i okolicznych terenów. Aby sprawdzić, czy usługa jest dostępna w Twojej lokalizacji, skontaktuj się z nami telefonicznie lub sprawdź naszą stronę internetową, gdzie znajduje się mapa obszaru działania.
                                 </div>
                             </div>
                         </div>
+
                         <div class="accordion-item">
-                            <h3 class="accordion-header" id="headingThreeAccordionTwo"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree2" aria-expanded="false" aria-controls="collapseThree2">How do I report a technical issue?</button></h3>
-                            <div class="accordion-collapse collapse" id="collapseThree2" aria-labelledby="headingThreeAccordionTwo" data-bs-parent="#accordionExample2">
+                            <h3 class="accordion-header" id="headingThreeAccordionTimeAndLocation">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeTimeAndLocation" aria-expanded="false" aria-controls="collapseThreeTimeAndLocation">
+                                    Jak długo trwa standardowa naprawa opony?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseThreeTimeAndLocation" aria-labelledby="headingThreeAccordionTimeAndLocation" data-bs-parent="#accordionTimeAndLocation">
                                 <div class="accordion-body">
-                                    <strong>If you encounter a technical issue,</strong> please go to our "Support" page and submit a ticket detailing the problem. Provide as much information as possible, including screenshots if necessary. Our technical team will work to resolve the issue promptly.
+                                    <strong>Standardowa naprawa opony</strong> trwa zazwyczaj od 20 do 40 minut, w zależności od rodzaju uszkodzenia i typu opony. Proces może się wydłużyć, jeśli konieczna jest wymiana opony lub dodatkowe prace serwisowe.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingFourAccordionTimeAndLocation">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourTimeAndLocation" aria-expanded="false" aria-controls="collapseFourTimeAndLocation">
+                                    Czy mobilna wulkanizacja działa w przypadku awarii na autostradzie?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseFourTimeAndLocation" aria-labelledby="headingFourAccordionTimeAndLocation" data-bs-parent="#accordionTimeAndLocation">
+                                <div class="accordion-body">
+                                    Tak, <strong>nasza ekipa mobilnej wulkanizacji</strong> obsługuje także awarie na autostradach. W takim przypadku skontaktuj się z nami i podaj dokładną lokalizację, a my postaramy się dotrzeć do Ciebie tak szybko, jak to możliwe. Pamiętaj, aby zachować wszelkie środki ostrożności i oznaczyć miejsce awarii trójkątem ostrzegawczym.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Accordion: Koszty i płatności -->
+                    <h2 class="fw-bolder mb-3">Koszty i płatności</h2>
+                    <div class="accordion mb-5 mb-xl-0" id="accordionCostsAndPayments">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingOneAccordionCostsAndPayments">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneCostsAndPayments" aria-expanded="true" aria-controls="collapseOneCostsAndPayments">
+                                    Jaki jest koszt mobilnej wulkanizacji?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse show" id="collapseOneCostsAndPayments" aria-labelledby="headingOneAccordionCostsAndPayments" data-bs-parent="#accordionCostsAndPayments">
+                                <div class="accordion-body">
+                                    <strong>Koszt mobilnej wulkanizacji</strong> zależy od rodzaju usługi, rodzaju opony oraz stopnia uszkodzenia. Ceny zaczynają się od około 100 zł za podstawowe naprawy. Aby uzyskać dokładną wycenę, prosimy o kontakt telefoniczny lub skorzystanie z naszego formularza online.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingTwoAccordionCostsAndPayments">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoCostsAndPayments" aria-expanded="false" aria-controls="collapseTwoCostsAndPayments">
+                                    Czy istnieją dodatkowe opłaty za dojazd do klienta?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseTwoCostsAndPayments" aria-labelledby="headingTwoAccordionCostsAndPayments" data-bs-parent="#accordionCostsAndPayments">
+                                <div class="accordion-body">
+                                    <strong>Opłaty za dojazd</strong> mogą być naliczane w zależności od odległości od naszej bazy. W przypadku lokalizacji w obrębie miasta dojazd jest zazwyczaj bezpłatny, jednak poza miastem może zostać naliczona dodatkowa opłata. Prosimy o kontakt w celu uzyskania szczegółów.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingThreeAccordionCostsAndPayments">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeCostsAndPayments" aria-expanded="false" aria-controls="collapseThreeCostsAndPayments">
+                                    Jakie formy płatności są akceptowane?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseThreeCostsAndPayments" aria-labelledby="headingThreeAccordionCostsAndPayments" data-bs-parent="#accordionCostsAndPayments">
+                                <div class="accordion-body">
+                                    <strong>Akceptujemy różne formy płatności,</strong> w tym gotówkę, karty płatnicze (Visa, MasterCard), a także płatności mobilne, takie jak BLIK. Dzięki temu możesz wybrać najdogodniejszy dla siebie sposób zapłaty za wykonaną usługę.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingFourAccordionCostsAndPayments">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourCostsAndPayments" aria-expanded="false" aria-controls="collapseFourCostsAndPayments">
+                                    Czy oferujecie faktury VAT?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseFourCostsAndPayments" aria-labelledby="headingFourAccordionCostsAndPayments" data-bs-parent="#accordionCostsAndPayments">
+                                <div class="accordion-body">
+                                    Tak, <strong>oferujemy faktury VAT</strong> dla naszych klientów biznesowych i indywidualnych. Jeśli potrzebujesz faktury, poinformuj nas o tym podczas składania zamówienia lub po wykonaniu usługi, a my wystawimy odpowiedni dokument.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Accordion: Rodzaje napraw i usług -->
+                    <h2 class="fw-bolder mb-3">Rodzaje napraw i usług</h2>
+                    <div class="accordion mb-5 mb-xl-0" id="accordionRepairAndServices">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingOneAccordionRepairAndServices">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneRepairAndServices" aria-expanded="true" aria-controls="collapseOneRepairAndServices">
+                                    Czy naprawiacie wszystkie typy opon (osobowe, dostawcze, ciężarowe)?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse show" id="collapseOneRepairAndServices" aria-labelledby="headingOneAccordionRepairAndServices" data-bs-parent="#accordionRepairAndServices">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> oferujemy naprawę wszystkich typów opon, w tym opon do samochodów osobowych, dostawczych oraz ciężarowych. Nasi specjaliści mają doświadczenie w naprawie różnych rodzajów opon, niezależnie od ich rozmiaru i przeznaczenia.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingTwoAccordionRepairAndServices">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoRepairAndServices" aria-expanded="false" aria-controls="collapseTwoRepairAndServices">
+                                    Czy oferujecie wymianę opon sezonowych?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseTwoRepairAndServices" aria-labelledby="headingTwoAccordionRepairAndServices" data-bs-parent="#accordionRepairAndServices">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> nasza usługa obejmuje wymianę opon sezonowych. Bez względu na to, czy przygotowujesz swój pojazd na zimę, czy na lato, nasi specjaliści zapewnią szybką i profesjonalną wymianę opon.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingThreeAccordionRepairAndServices">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeRepairAndServices" aria-expanded="false" aria-controls="collapseThreeRepairAndServices">
+                                    Czy usługa obejmuje wyważanie kół?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseThreeRepairAndServices" aria-labelledby="headingThreeAccordionRepairAndServices" data-bs-parent="#accordionRepairAndServices">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> wyważanie kół jest częścią naszych usług. Dobrze wyważone koła są kluczowe dla komfortu jazdy i bezpieczeństwa, dlatego zapewniamy precyzyjne wyważanie przy każdej wymianie lub naprawie opon.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingFourAccordionRepairAndServices">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourRepairAndServices" aria-expanded="false" aria-controls="collapseFourRepairAndServices">
+                                    Czy naprawiacie uszkodzenia felg?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseFourRepairAndServices" aria-labelledby="headingFourAccordionRepairAndServices" data-bs-parent="#accordionRepairAndServices">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> zajmujemy się również naprawą uszkodzeń felg. Nasi specjaliści potrafią skutecznie naprawić różnego rodzaju uszkodzenia, w tym wgniecenia, pęknięcia czy zarysowania, przywracając felgom ich pierwotny wygląd i funkcjonalność.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Accordion: Klienci indywidualni i biznesowi -->
+                    <h2 class="fw-bolder mb-3">Klienci indywidualni i biznesowi</h2>
+                    <div class="accordion mb-5 mb-xl-0" id="accordionIndividualAndBusiness">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingOneAccordionIndividualAndBusiness">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneIndividualAndBusiness" aria-expanded="true" aria-controls="collapseOneIndividualAndBusiness">
+                                    Czy obsługujecie zarówno klientów indywidualnych, jak i firmy?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse show" id="collapseOneIndividualAndBusiness" aria-labelledby="headingOneAccordionIndividualAndBusiness" data-bs-parent="#accordionIndividualAndBusiness">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> obsługujemy zarówno klientów indywidualnych, jak i firmy. Niezależnie od tego, czy potrzebujesz jednorazowej pomocy, czy regularnej obsługi floty, nasza mobilna wulkanizacja jest do Twojej dyspozycji.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingTwoAccordionIndividualAndBusiness">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoIndividualAndBusiness" aria-expanded="false" aria-controls="collapseTwoIndividualAndBusiness">
+                                    Czy oferujecie rabaty dla stałych klientów lub firm flotowych?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseTwoIndividualAndBusiness" aria-labelledby="headingTwoAccordionIndividualAndBusiness" data-bs-parent="#accordionIndividualAndBusiness">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> oferujemy atrakcyjne rabaty dla stałych klientów oraz firm posiadających floty pojazdów. Skontaktuj się z nami, aby omówić szczegóły i uzyskać ofertę dostosowaną do Twoich potrzeb.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingThreeAccordionIndividualAndBusiness">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeIndividualAndBusiness" aria-expanded="false" aria-controls="collapseThreeIndividualAndBusiness">
+                                    Jakie są korzyści z korzystania z waszych usług dla firm?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseThreeIndividualAndBusiness" aria-labelledby="headingThreeAccordionIndividualAndBusiness" data-bs-parent="#accordionIndividualAndBusiness">
+                                <div class="accordion-body">
+                                    <strong>Dla firm</strong>, korzystanie z naszych usług oznacza oszczędność czasu i pieniędzy. Zapewniamy szybki dojazd na miejsce, profesjonalną obsługę oraz elastyczne warunki współpracy, co pozwala na minimalizację przestojów i sprawną obsługę floty.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingFourAccordionIndividualAndBusiness">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourIndividualAndBusiness" aria-expanded="false" aria-controls="collapseFourIndividualAndBusiness">
+                                    Czy mogę podpisać umowę na stałą obsługę floty?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseFourIndividualAndBusiness" aria-labelledby="headingFourAccordionIndividualAndBusiness" data-bs-parent="#accordionIndividualAndBusiness">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> oferujemy możliwość podpisania umowy na stałą obsługę floty. Dzięki temu możesz liczyć na regularną, profesjonalną obsługę Twoich pojazdów oraz korzystne warunki współpracy. Skontaktuj się z nami, aby omówić szczegóły.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Accordion: Zamawianie i rezerwacja usługi -->
+                    <h2 class="fw-bolder mb-3">Zamawianie i rezerwacja usługi</h2>
+                    <div class="accordion mb-5 mb-xl-0" id="accordionOrderingAndBooking">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingOneAccordionOrderingAndBooking">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneOrderingAndBooking" aria-expanded="true" aria-controls="collapseOneOrderingAndBooking">
+                                    Jak mogę zamówić usługę mobilnej wulkanizacji?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse show" id="collapseOneOrderingAndBooking" aria-labelledby="headingOneAccordionOrderingAndBooking" data-bs-parent="#accordionOrderingAndBooking">
+                                <div class="accordion-body">
+                                    <strong>Aby zamówić usługę mobilnej wulkanizacji,</strong> możesz skontaktować się z nami telefonicznie, wysłać e-mail lub skorzystać z naszego formularza rezerwacji online dostępnego na stronie. Postaramy się odpowiedzieć na Twoje zapytanie tak szybko, jak to możliwe.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingTwoAccordionOrderingAndBooking">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoOrderingAndBooking" aria-expanded="false" aria-controls="collapseTwoOrderingAndBooking">
+                                    Czy mogę umówić wizytę na konkretny dzień i godzinę?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseTwoOrderingAndBooking" aria-labelledby="headingTwoAccordionOrderingAndBooking" data-bs-parent="#accordionOrderingAndBooking">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> możesz umówić wizytę na konkretny dzień i godzinę. Wystarczy skontaktować się z nami lub dokonać rezerwacji online, a my postaramy się dostosować do Twojego harmonogramu i wyznaczonego terminu.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingThreeAccordionOrderingAndBooking">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeOrderingAndBooking" aria-expanded="false" aria-controls="collapseThreeOrderingAndBooking">
+                                    Czy oferujecie usługę w trybie natychmiastowym?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseThreeOrderingAndBooking" aria-labelledby="headingThreeAccordionOrderingAndBooking" data-bs-parent="#accordionOrderingAndBooking">
+                                <div class="accordion-body">
+                                    <strong>Tak,</strong> w miarę dostępności ekipy oferujemy usługę w trybie natychmiastowym dla klientów, którzy potrzebują pilnej pomocy. W takich przypadkach prosimy o kontakt telefoniczny, abyśmy mogli szybko zareagować.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="headingFourAccordionOrderingAndBooking">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourOrderingAndBooking" aria-expanded="false" aria-controls="collapseFourOrderingAndBooking">
+                                    Jak wygląda proces rezerwacji online?
+                                </button>
+                            </h3>
+                            <div class="accordion-collapse collapse" id="collapseFourOrderingAndBooking" aria-labelledby="headingFourAccordionOrderingAndBooking" data-bs-parent="#accordionOrderingAndBooking">
+                                <div class="accordion-body">
+                                    <strong>Proces rezerwacji online</strong> jest prosty i intuicyjny. Wystarczy wypełnić formularz na naszej stronie, podając swoje dane kontaktowe, lokalizację, preferowany termin wizyty oraz szczegóły dotyczące problemu z oponą. Po złożeniu rezerwacji skontaktujemy się z Tobą, aby potwierdzić termin i szczegóły usługi.
                                 </div>
                             </div>
                         </div>

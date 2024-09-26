@@ -16,24 +16,18 @@
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <!-- Navigation-->
-    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
             <a class="navbar-brand" th:href="@{/}">Mobilna wulkanizacja</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">O nas</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Kontakt</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/faq}">FAQ</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Oferta</a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                            <li><a class="dropdown-item" th:href="@{/offer}">Dla osób fizycznych</a></li>
-                            <li><a class="dropdown-item" th:href="@{/companies-offer}">Dla firm</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/dates}">Daty</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/appointments}">Wizyty</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" th:onclick="'event.preventDefault(); document.getElementById(\'logoutForm\').submit();'">Wyloguj się</a></li>
+                    <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                    </form>
                 </ul>
             </div>
         </div>
@@ -52,26 +46,21 @@
                 </div>
                 <div class="row gx-5 justify-content-center mb-3">
                     <div class="col-lg-8 col-xl-6">
-                        <form id="contactForm">
-                            <!-- Email address input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email" placeholder="name@example.com" />
-                                <label for="email">Email address</label>
+                        <form th:action="@{/login}" method="post">
+                            <!-- Name input-->
+                            <div class="form-group mb-3">
+                                <label for="username">Nazwa użytkownika:</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Wpisz nazwę" required>
                             </div>
                             <!-- Password input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="password" type="password" placeholder="Enter your password" />
+                            <div class="form-group mb-3">
                                 <label for="password">Password</label>
+                                <input class="form-control" id="password" type="password" name="password" placeholder="Wpisz hasło" />
                             </div>
                             <!-- Log in Button-->
-                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Log in</button></div>
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Zaloguj się</button></div>
                         </form>
                     </div>
-                </div>
-                <!-- Forgot Password / Register -->
-                <div class="text-center">
-                    <a href="#" class="text-decoration-none">Forgot Password</a><br>
-                    Don't have an account? <a href="#" class="text-decoration-none">Create one</a>
                 </div>
             </div>
         </div>
