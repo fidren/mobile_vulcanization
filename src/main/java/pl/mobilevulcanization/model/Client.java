@@ -24,9 +24,8 @@ public class Client {
 
     private String category;
 
-    @OneToOne
-    @JoinColumn(name = "date_of_appointment", referencedColumnName = "date", unique = true)  // Relacja One-to-One, połączona z tabelą appointment_dates
-    private AppointmentDate appointmentDate;
+    @Column(name = "date_of_appointment")
+    private LocalDateTime dateOfAppointment;
 
     @Column(nullable = false)
     private String description;
@@ -45,13 +44,15 @@ public class Client {
 
     private String nip;
 
-    public Client(AppointmentDate appointmentDate, String name, String email, String phone, String address, String category, String description) {
-        this.appointmentDate = appointmentDate;
+    public Client(LocalDateTime appointmentDate, String name, String email, String phone, String address, String category, String description, String clientType, String nip) {
+        this.dateOfAppointment = appointmentDate;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.category = category;
         this.description = description;
+        this.clientType = clientType;
+        this.nip = nip;
     }
 }
