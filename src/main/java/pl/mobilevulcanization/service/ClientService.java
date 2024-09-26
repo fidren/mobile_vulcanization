@@ -9,10 +9,8 @@ import java.util.List;
 
 public interface ClientService {
     Client addClient(AddClientRequest addClientRequest);
-    Client getClient(Long id);
     void deleteClient(Long id);
     Client updateClient(UpdateClientRequest updateClientRequest, Long id);
     List<Client> getAllClients();
-    List<Client> getClientsByDate(LocalDate date);
     List<Client> getFilteredClients(String clientType, LocalDate date, Boolean isCurrent);
 }
