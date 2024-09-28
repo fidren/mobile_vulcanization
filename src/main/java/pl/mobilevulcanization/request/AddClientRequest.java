@@ -1,8 +1,10 @@
 package pl.mobilevulcanization.request;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class AddClientRequest {
     private String clientType; // "person" or "company"
     private String appointmentDate;
