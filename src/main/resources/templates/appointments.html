@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-<!--    <meta name="_csrf" content="${_csrf.token}">-->
-<!--    <meta name="_csrf_header" content="${_csrf.headerName}">-->
-<!--    <meta name="${_csrf.parameterName}" content="${_csrf.token}" />-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Wizyty - Admin Panel</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -76,8 +75,6 @@
 
             <!-- Modal to edit client -->
             <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
-<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-<!--                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -139,7 +136,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                             <button type="button" class="btn btn-primary" onclick="saveEditedClient()">Zapisz zmiany</button>
-                            <button type="button" class="btn btn-danger" onclick="deleteClient()">Usuń datę</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteClient()">Usuń wizytę</button>
                         </div>
                     </div>
                 </div>
@@ -189,6 +186,7 @@
         </div>
     </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const filterAppointmentsDiv = document.getElementById("filterAppointmentsDiv");
@@ -215,10 +213,8 @@
             const filterDate = document.getElementById("filterAppointmentDate").value;
             const onlyCurrentDates = document.getElementById("flexCheckCurrentDate").checked;
 
-            // Domyślny URL (bez filtrów)
             let url = '/allClients';
 
-            // Jeżeli są ustawione filtry, zbuduj odpowiedni URL
             if (filterAppointmentsDiv.style.display === 'block') {
                 url = '/filteredClients';
                 // Default URL (no filters)

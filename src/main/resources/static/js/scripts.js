@@ -178,10 +178,14 @@ function saveEditedDate() {
     const isFree = document.getElementById("editIsFree").checked;
     const originalDate = document.getElementById("originalDate").value;
 
+    const _csrf = $("meta[name='_csrf']").attr("content");
+    const _csrf_header = $("meta[name='_csrf_header']").attr("content");
+
     fetch(`/date/${encodeURIComponent(originalDate)}/update`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            [_csrf_header]: _csrf
         },
         body: JSON.stringify(isFree)
     })
@@ -202,8 +206,15 @@ function saveEditedDate() {
 function deleteDate() {
     const originalDate = document.getElementById("originalDate").value;
 
+    const _csrf = $("meta[name='_csrf']").attr("content");
+    const _csrf_header = $("meta[name='_csrf_header']").attr("content");
+
     fetch(`/date/${encodeURIComponent(originalDate)}/delete`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            [_csrf_header]: _csrf
+        }
     })
         .then(response => {
             if (response.ok) {
@@ -356,11 +367,14 @@ function saveEditedClient() {
         nip: nip
     };
 
+    const _csrf = $("meta[name='_csrf']").attr("content");
+    const _csrf_header = $("meta[name='_csrf_header']").attr("content");
 
     fetch(`/client/${id}/update`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            [_csrf_header]: _csrf
         },
         body: JSON.stringify(clientData)
     })
@@ -380,11 +394,14 @@ function saveEditedClient() {
 function deleteClient() {
     const id = document.getElementById("editId").value;
 
+    const _csrf = $("meta[name='_csrf']").attr("content");
+    const _csrf_header = $("meta[name='_csrf_header']").attr("content");
+
     fetch(`/client/${id}/delete`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            //'X-CSRF-Token': csrfToken
+            [_csrf_header]: _csrf
         }
     })
         .then(response => {
