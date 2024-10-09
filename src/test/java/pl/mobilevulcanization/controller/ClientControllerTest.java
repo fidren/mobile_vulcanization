@@ -1,7 +1,6 @@
 package pl.mobilevulcanization.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.mobilevulcanization.model.AppointmentDate;
 import pl.mobilevulcanization.model.Client;
+import pl.mobilevulcanization.repository.ClientRepository;
 import pl.mobilevulcanization.request.AddClientRequest;
 import pl.mobilevulcanization.request.UpdateClientRequest;
 import pl.mobilevulcanization.service.ClientService;
@@ -35,6 +35,8 @@ class ClientControllerTest {
 
     @MockBean
     private ClientService clientService;
+    @MockBean
+    private ClientRepository clientRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -46,8 +48,7 @@ class ClientControllerTest {
     private AddClientRequest addClientRequest;
     private UpdateClientRequest updateClientRequest;
 
-    @BeforeEach
-    void setUp() {
+    void setUpCompanyClient() {
         companyClient = Client.builder()
                 .address("Kielce Żytnia 15")
                 .description("Wymiana opon we flocie")
@@ -57,10 +58,14 @@ class ClientControllerTest {
                 .clientType("company")
                 .nip("1234567891")
                 .build();
+    }
+    void setUpAppointmentDate() {
         appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(true)
                 .build();
+    }
+    void setUpClient() {
         client = Client.builder()
                 .address("Kielce Długa 44")
                 .category("Wyważanie kół")
@@ -71,6 +76,8 @@ class ClientControllerTest {
                 .phone("234 567 564")
                 .clientType("person")
                 .build();
+    }
+    void setUpAddCompanyClientRequest() {
         addCompanyClientRequest = AddClientRequest.builder()
                 .address("Kielce Żytnia 15")
                 .problemDescription("Wymiana opon we flocie")
@@ -80,6 +87,8 @@ class ClientControllerTest {
                 .clientType("company")
                 .nip("1234567891")
                 .build();
+    }
+    void setUpAddClientRequest() {
         addClientRequest = AddClientRequest.builder()
                 .address("Kielce Długa 44")
                 .serviceCategory("Wyważanie kół")
@@ -91,6 +100,8 @@ class ClientControllerTest {
                 .phone("234 567 564")
                 .clientType("person")
                 .build();
+    }
+    void setUpUpdateClientRequest() {
         updateClientRequest = UpdateClientRequest.builder()
                 .address("Kielce Żytnia 15")
                 .problemDescription("Wymiana opon we flocie")
@@ -103,21 +114,27 @@ class ClientControllerTest {
 
     @Test
     void getAllClientTest() throws Exception {
+        setUpAppointmentDate();
+        setUpClient();
+        setUpCompanyClient();
+
         List<Client> clients = Arrays.asList(
                 client,
                 companyClient
         );
 
-        when(clientService.getAllClients()).thenReturn(clients);
+        when(clientRepository.findAll()).thenReturn(clients);
 
         mockMvc.perform(get("/allClients"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
-
     }
 
     @Test
     void addCompanyClientTest() throws Exception {
+        setUpCompanyClient();
+        setUpAddCompanyClientRequest();
+
         when(clientService.addClient(addCompanyClientRequest)).thenReturn(companyClient);
 
         mockMvc.perform(post("/addClient")
@@ -135,6 +152,10 @@ class ClientControllerTest {
 
     @Test
     void addPersonClientTest() throws Exception {
+        setUpAppointmentDate();
+        setUpClient();
+        setUpAddClientRequest();
+
         when(clientService.addClient(addClientRequest)).thenReturn(client);
 
         mockMvc.perform(post("/addClient")
@@ -153,6 +174,9 @@ class ClientControllerTest {
 
     @Test
     void updateClientTest() throws Exception {
+        setUpCompanyClient();
+        setUpUpdateClientRequest();
+
         when(clientService.updateClient(updateClientRequest, 1L)).thenReturn(companyClient);
 
         mockMvc.perform(put("/client/{clientId}/update", 1L)

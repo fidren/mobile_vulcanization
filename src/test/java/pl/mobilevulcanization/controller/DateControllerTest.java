@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.mobilevulcanization.model.AppointmentDate;
+import pl.mobilevulcanization.repository.DateRepository;
 import pl.mobilevulcanization.request.AddDateRequest;
 import pl.mobilevulcanization.service.DateService;
 
@@ -32,16 +33,21 @@ class DateControllerTest {
 
     @MockBean
     private DateService dateService;
+    @MockBean
+    private DateRepository dateRepository;
 
     private AppointmentDate appointmentDate;
     private AddDateRequest addDateRequest;
 
     @BeforeEach
-    void setUp() {
+    void setUpAppointmentDate() {
         appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(true)
                 .build();
+    }
+
+    void setUpAddDateRequest() {
         addDateRequest = AddDateRequest.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree("true")
@@ -58,7 +64,7 @@ class DateControllerTest {
                         .build()
         );
 
-        when(dateService.getAllAppointmentDates()).thenReturn(appointmentDates);
+        when(dateRepository.findAll()).thenReturn(appointmentDates);
 
         mockMvc.perform(get("/allDates"))
                 .andExpect(status().isOk())
@@ -72,6 +78,8 @@ class DateControllerTest {
 
     @Test
     void addAppointmentDateTest() throws Exception {
+        setUpAddDateRequest();
+
         when(dateService.addAppointmentDate(addDateRequest)).thenReturn(appointmentDate);
 
         mockMvc.perform(post("/addDate")

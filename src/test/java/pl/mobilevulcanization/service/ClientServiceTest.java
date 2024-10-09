@@ -1,6 +1,5 @@
 package pl.mobilevulcanization.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,8 +14,6 @@ import pl.mobilevulcanization.request.AddClientRequest;
 import pl.mobilevulcanization.request.UpdateClientRequest;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,8 +37,7 @@ class ClientServiceTest {
     private AddClientRequest addClientRequest;
     private UpdateClientRequest updateClientRequest;
 
-    @BeforeEach
-    void setUp() {
+    void setUpCompanyClient() {
         companyClient = Client.builder()
                 .address("Kielce Żytnia 15")
                 .description("Wymiana opon we flocie")
@@ -51,10 +47,14 @@ class ClientServiceTest {
                 .clientType("company")
                 .nip("1234567891")
                 .build();
+    }
+    void setUpAppointmentDate() {
         appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(true)
                 .build();
+    }
+    void setUpClient() {
         client = Client.builder()
                 .address("Kielce Długa 44")
                 .category("Wyważanie kół")
@@ -65,6 +65,8 @@ class ClientServiceTest {
                 .phone("234 567 564")
                 .clientType("person")
                 .build();
+    }
+    void setUpAddCompanyClientRequest() {
         addCompanyClientRequest = AddClientRequest.builder()
                 .address("Kielce Żytnia 15")
                 .problemDescription("Wymiana opon we flocie")
@@ -74,6 +76,8 @@ class ClientServiceTest {
                 .clientType("company")
                 .nip("1234567891")
                 .build();
+    }
+    void setUpAddClientRequest() {
         addClientRequest = AddClientRequest.builder()
                 .address("Kielce Długa 44")
                 .serviceCategory("Wyważanie kół")
@@ -85,6 +89,8 @@ class ClientServiceTest {
                 .phone("234 567 564")
                 .clientType("person")
                 .build();
+    }
+    void setUpUpdateClientRequest() {
         updateClientRequest = UpdateClientRequest.builder()
                 .address("Kielce Żytnia 15")
                 .problemDescription("Wymiana opon we flocie")
@@ -97,6 +103,9 @@ class ClientServiceTest {
 
     @Test
     void addCompanyClientTest() {
+        setUpCompanyClient();
+        setUpAddCompanyClientRequest();
+
         when(clientRepository.save(Mockito.any(Client.class))).thenReturn(companyClient);
 
         //Act
@@ -108,6 +117,10 @@ class ClientServiceTest {
 
     @Test
     void addPersonClientTest() {
+        setUpAppointmentDate();
+        setUpClient();
+        setUpAddClientRequest();
+
         when(clientRepository.save(Mockito.any(Client.class))).thenReturn(client);
         when(dateRepository.save(Mockito.any(AppointmentDate.class))).thenReturn(appointmentDate);
         when(dateRepository.findByDate(Mockito.any(LocalDateTime.class))).thenReturn(appointmentDate);
@@ -121,6 +134,8 @@ class ClientServiceTest {
 
     @Test
     void addPersonClientFailTest() {
+        setUpAddClientRequest();
+
         AppointmentDate appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(false)
@@ -139,6 +154,8 @@ class ClientServiceTest {
 
     @Test
     void deleteCompanyClient() {
+        setUpCompanyClient();
+
         when(clientRepository.findById(1L)).thenReturn(Optional.ofNullable(companyClient));
 
         assertAll(() -> clientService.deleteClient(1L));
@@ -146,6 +163,9 @@ class ClientServiceTest {
 
     @Test
     void deletePersonClient() {
+        setUpAppointmentDate();
+        setUpClient();
+
         when(dateRepository.findByDate(Mockito.any(LocalDateTime.class))).thenReturn(appointmentDate);
         when(clientRepository.findById(1L)).thenReturn(Optional.ofNullable(client));
 
@@ -154,24 +174,14 @@ class ClientServiceTest {
 
     @Test
     void updateClient() {
+        setUpCompanyClient();
+        setUpUpdateClientRequest();
+
         when(clientRepository.findById(1L)).thenReturn(Optional.ofNullable(companyClient));
         when(clientRepository.save(Mockito.any(Client.class))).thenReturn(companyClient);
 
         Client updatedClient = clientService.updateClient(updateClientRequest, 1L);
 
         assertNotNull(updatedClient);
-    }
-
-    @Test
-    void getAllClients() {
-        List<Client> clients = Arrays.asList(client, companyClient);
-
-        when(clientRepository.findAll()).thenReturn(clients);
-
-        List<Client> allClients = clientService.getAllClients();
-
-        assertNotNull(allClients);
-        assertEquals(2, allClients.size());
-        assertEquals(clients, allClients);
     }
 }

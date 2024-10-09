@@ -27,15 +27,29 @@ class ClientRepositoryTest {
     @Autowired
     private DateRepository dateRepository;
 
-    @Test
-    public void saveClientTest() {
-        //Arrange
-        AppointmentDate appointmentDate = AppointmentDate.builder()
+    private Client companyClient;
+    private Client client;
+    private AppointmentDate appointmentDate;
+
+    void setUpCompanyClient() {
+        companyClient = Client.builder()
+                .address("Kielce Żytnia 15")
+                .description("Wymiana opon we flocie")
+                .email("budim@company.pl")
+                .name("Budim")
+                .phone("234 567 564")
+                .clientType("company")
+                .nip("1234567891")
+                .build();
+    }
+    void setUpAppointmentDate() {
+        appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(true)
                 .build();
-
-        Client client = Client.builder()
+    }
+    void setUpClient() {
+        client = Client.builder()
                 .address("Kielce Długa 44")
                 .category("Wyważanie kół")
                 .dateOfAppointment(appointmentDate.getDate())
@@ -45,6 +59,13 @@ class ClientRepositoryTest {
                 .phone("234 567 564")
                 .clientType("person")
                 .build();
+    }
+
+    @Test
+    public void saveClientTest() {
+        //Arrange
+        setUpAppointmentDate();
+        setUpClient();
 
         //Act
         dateRepository.save(appointmentDate);
@@ -57,15 +78,7 @@ class ClientRepositoryTest {
 
     @Test
     public void deleteClientTest() {
-        Client companyClient = Client.builder()
-                .address("Kielce Żytnia 15")
-                .description("Wymiana opon we flocie")
-                .email("budim@company.pl")
-                .name("Budim")
-                .phone("234 567 564")
-                .clientType("company")
-                .nip("1234567891")
-                .build();
+        setUpCompanyClient();
 
         clientRepository.save(companyClient);
         clientRepository.delete(companyClient);
@@ -78,35 +91,13 @@ class ClientRepositoryTest {
     @Test
     public void getAllClientsTest() {
         //Arrange
-        AppointmentDate appointmentDate = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 28, 14, 30))
-                .isFree(true)
-                .build();
-
-        Client personalClient = Client.builder()
-                .address("Kielce Długa 44")
-                .category("Wyważanie kół")
-                .dateOfAppointment(appointmentDate.getDate())
-                .description("Lewe oba koła")
-                .email("nowak@pl.pl")
-                .name("Adam Nowak")
-                .phone("234 567 564")
-                .clientType("person")
-                .build();
-
-        Client companyClient = Client.builder()
-                .address("Kielce Żytnia 15")
-                .description("Wymiana opon we flocie")
-                .email("budim@company.pl")
-                .name("Budim")
-                .phone("234 567 564")
-                .clientType("company")
-                .nip("1234567891")
-                .build();
+        setUpAppointmentDate();
+        setUpClient();
+        setUpCompanyClient();
 
         //Act
         dateRepository.save(appointmentDate);
-        clientRepository.save(personalClient);
+        clientRepository.save(client);
         clientRepository.save(companyClient);
 
         List<Client> clientList = clientRepository.findAll();
@@ -118,15 +109,7 @@ class ClientRepositoryTest {
 
     @Test
     public void getClientByIdTest() {
-        Client companyClient = Client.builder()
-                .address("Kielce Żytnia 15")
-                .description("Wymiana opon we flocie")
-                .email("budim@company.pl")
-                .name("Budim")
-                .phone("234 567 564")
-                .clientType("company")
-                .nip("1234567891")
-                .build();
+        setUpCompanyClient();
 
         clientRepository.save(companyClient);
 
@@ -138,35 +121,13 @@ class ClientRepositoryTest {
     @Test
     void getAllCompanyClientsTest() {
         //Arrange
-        AppointmentDate appointmentDate = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 28, 14, 30))
-                .isFree(true)
-                .build();
-
-        Client personalClient = Client.builder()
-                .address("Kielce Długa 44")
-                .category("Wyważanie kół")
-                .dateOfAppointment(appointmentDate.getDate())
-                .description("Lewe oba koła")
-                .email("nowak@pl.pl")
-                .name("Adam Nowak")
-                .phone("234 567 564")
-                .clientType("person")
-                .build();
-
-        Client companyClient = Client.builder()
-                .address("Kielce Żytnia 15")
-                .description("Wymiana opon we flocie")
-                .email("budim@company.pl")
-                .name("Budim")
-                .phone("234 567 564")
-                .clientType("company")
-                .nip("1234567891")
-                .build();
+        setUpAppointmentDate();
+        setUpClient();
+        setUpCompanyClient();
 
         //Act
         dateRepository.save(appointmentDate);
-        clientRepository.save(personalClient);
+        clientRepository.save(client);
         clientRepository.save(companyClient);
 
         List<Client> clientList = clientRepository.findAllCompanyClients();
@@ -179,27 +140,13 @@ class ClientRepositoryTest {
     @Test
     void getFilteredClientsTest() {
         //Arrange
-        AppointmentDate appointmentDate = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 29, 14, 30))
-                .isFree(true)
-                .build();
+        setUpAppointmentDate();
+        setUpClient();
 
         AppointmentDate appointmentDate2 = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 28, 15, 0))
+                .date(LocalDateTime.of(2024, 11, 27, 15, 0))
                 .isFree(true)
                 .build();
-
-        Client personalClient = Client.builder()
-                .address("Kielce Długa 44")
-                .category("Wyważanie kół")
-                .dateOfAppointment(appointmentDate.getDate())
-                .description("Lewe oba koła")
-                .email("nowak@pl.pl")
-                .name("Adam Nowak")
-                .phone("234 567 564")
-                .clientType("person")
-                .build();
-
         Client personalClient2 = Client.builder()
                 .address("Kielce Parkowa 3")
                 .category("Wyważanie kół")
@@ -211,25 +158,17 @@ class ClientRepositoryTest {
                 .clientType("person")
                 .build();
 
-        Client companyClient = Client.builder()
-                .address("Kielce Żytnia 15")
-                .description("Wymiana opon we flocie")
-                .email("budim@company.pl")
-                .name("Budim")
-                .phone("234 567 564")
-                .clientType("company")
-                .nip("1234567891")
-                .build();
+        setUpCompanyClient();
 
         //Act
         dateRepository.save(appointmentDate);
         dateRepository.save(appointmentDate2);
 
-        clientRepository.save(personalClient);
+        clientRepository.save(client);
         clientRepository.save(personalClient2);
         clientRepository.save(companyClient);
 
-        List<Client> clientList1 = clientRepository.findFilteredClients(null, LocalDate.of(2024, 11, 29), false);
+        List<Client> clientList1 = clientRepository.findFilteredClients(null, LocalDate.of(2024, 11, 28), false);
         List<Client> clinetList2 = clientRepository.findFilteredClients(null, false);
 
         //Assert

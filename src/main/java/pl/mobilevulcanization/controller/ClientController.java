@@ -22,7 +22,7 @@ public class ClientController {
 
     @GetMapping("/allClients")
     public ResponseEntity<List<Client>> getAllClient() {
-        List<Client> clientList = clientRepository.findAll();;
+        List<Client> clientList = clientRepository.findAll();
         return ResponseEntity.ok(clientList);
     }
 

@@ -1,6 +1,7 @@
 package pl.mobilevulcanization.repository;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,14 +23,18 @@ class DateRepositoryTest {
     @Autowired
     private DateRepository dateRepository;
 
-    @Test
-    public void saveDateTest(){
-        //Arrange
-        AppointmentDate appointmentDate = AppointmentDate.builder()
+    private AppointmentDate appointmentDate;
+
+    @BeforeEach
+    void setUpAppointmentDate() {
+        appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(true)
                 .build();
+    }
 
+    @Test
+    public void saveDateTest(){
         //Act
         AppointmentDate savedDate = dateRepository.save(appointmentDate);
 
@@ -39,12 +44,6 @@ class DateRepositoryTest {
 
     @Test
     public void deleteDateTest(){
-        //Arrange
-        AppointmentDate appointmentDate = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 28, 14, 30))
-                .isFree(true)
-                .build();
-
         //Act
         dateRepository.save(appointmentDate);
         dateRepository.delete(appointmentDate);
@@ -57,10 +56,6 @@ class DateRepositoryTest {
 
     @Test
     public void getAllDatesTest() {
-        AppointmentDate appointmentDate = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 28, 14, 30))
-                .isFree(true)
-                .build();
         AppointmentDate appointmentDate2 = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 15, 0))
                 .isFree(true)
@@ -77,11 +72,6 @@ class DateRepositoryTest {
 
     @Test
     public void getAppointmentDateByDateTest() {
-        AppointmentDate appointmentDate = AppointmentDate.builder()
-                .date(LocalDateTime.of(2024, 11, 28, 14, 30))
-                .isFree(true)
-                .build();
-
         dateRepository.save(appointmentDate);
 
         AppointmentDate searchDate = dateRepository.findByDate(appointmentDate.getDate());
@@ -108,7 +98,7 @@ class DateRepositoryTest {
         dateRepository.save(appointmentDate2);
         dateRepository.save(appointmentDate3);
 
-        List<AppointmentDate> allDates = dateRepository.findAllFreeCurrentDateByDate(LocalDate.now());
+        List<AppointmentDate> allDates = dateRepository.findAllFreeDatesFrom(LocalDate.now());
 
         assertNotNull(allDates);
         assertThat(allDates.size()).isEqualTo(1);

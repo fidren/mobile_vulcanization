@@ -12,8 +12,6 @@ import pl.mobilevulcanization.repository.DateRepository;
 import pl.mobilevulcanization.request.AddDateRequest;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -30,12 +28,15 @@ class DateServiceTest {
     private AddDateRequest addDateRequest;
 
     @BeforeEach
-    void setUp() {
+    void setUpAppointmentDate() {
         appointmentDate = AppointmentDate.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree(true)
                 .build();
-        addDateRequest =AddDateRequest.builder()
+    }
+
+    void setUpAddDateRequest() {
+        addDateRequest = AddDateRequest.builder()
                 .date(LocalDateTime.of(2024, 11, 28, 14, 30))
                 .isFree("true")
                 .build();
@@ -43,6 +44,8 @@ class DateServiceTest {
 
     @Test
     void addAppointmentDateTest() {
+        setUpAddDateRequest();
+
         when(dateRepository.save(Mockito.any(AppointmentDate.class))).thenReturn(appointmentDate);
         //Act
         AppointmentDate savedDate = dateService.addAppointmentDate(addDateRequest);
@@ -66,27 +69,5 @@ class DateServiceTest {
         when(dateRepository.findByDate(Mockito.any(LocalDateTime.class))).thenReturn(appointmentDate);
 
         assertAll(() -> dateService.deleteAppointmentDate(LocalDateTime.of(2024, 11, 28, 14, 30)));
-    }
-
-    @Test
-    void getAllAppointmentDatesTest() {
-        // Arrange
-        List<AppointmentDate> appointmentDates = Arrays.asList(
-                appointmentDate,
-                AppointmentDate.builder()
-                        .date(LocalDateTime.of(2024, 12, 5, 10, 0))
-                        .isFree(false)
-                        .build()
-        );
-
-        when(dateRepository.findAll()).thenReturn(appointmentDates);
-
-        // Act
-        List<AppointmentDate> savedDates = dateService.getAllAppointmentDates();
-
-        // Assert
-        assertNotNull(savedDates);
-        assertEquals(2, savedDates.size());
-        assertEquals(appointmentDates, savedDates);
     }
 }
