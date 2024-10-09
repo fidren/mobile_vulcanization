@@ -111,10 +111,6 @@ public class ClientService{
         return existingClient;
     }
 
-    public List<Client> getAllClients() {
-        return clientRepository.findAll();
-    }
-
     public List<Client> getFilteredClients(String clientType, LocalDate date, Boolean isCurrent) {
         if(clientType == null && date == null && !isCurrent) {
             return clientRepository.findAll();

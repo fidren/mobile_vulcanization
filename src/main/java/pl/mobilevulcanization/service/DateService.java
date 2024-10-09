@@ -8,9 +8,7 @@ import pl.mobilevulcanization.model.AppointmentDate;
 import pl.mobilevulcanization.repository.DateRepository;
 import pl.mobilevulcanization.request.AddDateRequest;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,17 +48,4 @@ public class DateService{
 
         dateRepository.delete(appointmentDate);
     }
-
-    public List<AppointmentDate> getAllAppointmentDates() {
-        return dateRepository.findAll();
-    }
-
-    public List<AppointmentDate> getAllFreeCurrentAppointmentDatesByDate(LocalDate date) {
-        return dateRepository.findAllFreeCurrentDateByDate(date);
-    }
-
-    public List<AppointmentDate> getFilteredDates(LocalDate date, Boolean isCurrent, Boolean isFree) {
-        return dateRepository.findFilteredDates(date, isCurrent, isFree);
-    }
-
 }

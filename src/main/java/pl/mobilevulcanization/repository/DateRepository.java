@@ -14,7 +14,7 @@ public interface DateRepository extends JpaRepository<AppointmentDate, Long> {
     AppointmentDate findByDate(LocalDateTime localDateTime);
 
     @Query("SELECT a FROM AppointmentDate a WHERE FUNCTION('DATE', a.date) = :localDate AND FUNCTION('DATE', a.date) >= CURRENT_DATE AND a.isFree = true")
-    List<AppointmentDate> findAllFreeCurrentDateByDate(LocalDate localDate);
+    List<AppointmentDate> findAllFreeDatesFrom(LocalDate localDate);
 
     @Query("SELECT a FROM AppointmentDate a WHERE " +
             "(COALESCE(:localDate, FUNCTION('DATE', a.date)) = FUNCTION('DATE', a.date)) AND" +

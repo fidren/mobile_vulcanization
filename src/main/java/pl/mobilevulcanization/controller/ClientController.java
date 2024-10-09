@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.mobilevulcanization.model.Client;
+import pl.mobilevulcanization.repository.ClientRepository;
 import pl.mobilevulcanization.request.AddClientRequest;
 import pl.mobilevulcanization.request.UpdateClientRequest;
 import pl.mobilevulcanization.service.ClientService;
@@ -17,10 +18,11 @@ import java.util.List;
 @RestController
 public class ClientController {
     private final ClientService clientService;
+    private final ClientRepository clientRepository;
 
     @GetMapping("/allClients")
     public ResponseEntity<List<Client>> getAllClient() {
-        List<Client> clientList = clientService.getAllClients();
+        List<Client> clientList = clientRepository.findAll();;
         return ResponseEntity.ok(clientList);
     }
 

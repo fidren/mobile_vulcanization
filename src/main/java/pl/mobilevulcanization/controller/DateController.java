@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.mobilevulcanization.model.AppointmentDate;
+import pl.mobilevulcanization.repository.DateRepository;
 import pl.mobilevulcanization.request.AddDateRequest;
 import pl.mobilevulcanization.service.DateService;
 
@@ -17,10 +18,11 @@ import java.util.List;
 @RestController
 public class DateController {
     private final DateService dateService;
+    private final DateRepository dateRepository;
 
     @GetMapping("/allDates")
     public ResponseEntity<List<AppointmentDate>> getAllDates() {
-        List<AppointmentDate> datesList = dateService.getAllAppointmentDates();
+        List<AppointmentDate> datesList = dateRepository.findAll();
         return ResponseEntity.ok(datesList);
     }
 
@@ -29,13 +31,13 @@ public class DateController {
                                                                   @RequestParam(required = false) Boolean isCurrent,
                                                                   @RequestParam(required = false) Boolean isFree) {
 
-        List<AppointmentDate> datesList = dateService.getFilteredDates(date, isCurrent, isFree);
+        List<AppointmentDate> datesList = dateRepository.findFilteredDates(date, isCurrent, isFree);
         return ResponseEntity.ok(datesList);
     }
 
     @GetMapping("/allDates/free/from/{localDate}")
     public ResponseEntity<List<AppointmentDate>> getAllFreeDatesFrom(@PathVariable("localDate") LocalDate date) {
-        List<AppointmentDate> datesList = dateService.getAllFreeCurrentAppointmentDatesByDate(date);
+        List<AppointmentDate> datesList = dateRepository.findAllFreeDatesFrom(date);
         return ResponseEntity.ok(datesList);
     }
 
