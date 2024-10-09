@@ -18,14 +18,12 @@ import java.util.List;
 public class ClientController {
     private final ClientService clientService;
 
-    //used in admin panel /appointments
     @GetMapping("/allClients")
     public ResponseEntity<List<Client>> getAllClient() {
         List<Client> clientList = clientService.getAllClients();
         return ResponseEntity.ok(clientList);
     }
 
-    //used in admin panel /appointments
     @GetMapping("/filteredClients")
     public ResponseEntity<List<Client>> getFilteredClient(@RequestParam(required = false) String clientType,
                                                           @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
@@ -34,21 +32,18 @@ public class ClientController {
         return ResponseEntity.ok(clientList);
     }
 
-    //used in appointment form
     @PostMapping("/addClient")
     public ModelAndView addClient(@ModelAttribute("clientRequest") AddClientRequest clientRequest) {
         clientService.addClient(clientRequest);
         return new ModelAndView("redirect:/appointment-success");
     }
 
-    //used in admin panel /appointments
     @PutMapping("/client/{clientId}/update")
     public ResponseEntity<Client> updateClient(@RequestBody UpdateClientRequest updateClientRequest, @PathVariable("clientId") Long id) {
         Client client = clientService.updateClient(updateClientRequest, id);
         return ResponseEntity.ok(client);
     }
 
-    //used in admin panel /appointments
     @DeleteMapping("/client/{clientId}/delete")
     public ResponseEntity<Void> deleteClient(@PathVariable("clientId") Long id) {
         clientService.deleteClient(id);

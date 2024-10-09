@@ -56,7 +56,6 @@ public class SecurityConfig {
                                 "/addClient"
                         ).permitAll()
                         .requestMatchers("/admin-panel", "/dates", "/appointments", "/client/**").hasRole("ADMIN")
-                        // Zezwolenie na dostęp do zasobów statycznych
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )
