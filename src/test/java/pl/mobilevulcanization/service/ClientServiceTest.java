@@ -31,7 +31,7 @@ class ClientServiceTest {
     private DateRepository dateRepository;
 
     @InjectMocks
-    private ClientServiceImpl clientService;
+    private ClientService clientService;
 
     private Client companyClient;
     private Client client;

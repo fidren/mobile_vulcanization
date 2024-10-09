@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.mobilevulcanization.model.AppointmentDate;
 import pl.mobilevulcanization.request.AddDateRequest;
+import pl.mobilevulcanization.service.DateService;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
