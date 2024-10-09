@@ -25,9 +25,9 @@ public class ClientService{
     public Client addClient(AddClientRequest addClientRequest) {
         Client client;
 
-        if(addClientRequest.getClientType().equals("person")) {
+        if(addClientRequest.clientType().equals("person")) {
             //Physical client
-            LocalDateTime localDateTime = convertToLocalDateTime(addClientRequest.getAppointmentDate());
+            LocalDateTime localDateTime = convertToLocalDateTime(addClientRequest.appointmentDate());
             Optional<AppointmentDate> appointmentDateEntity = Optional.ofNullable(dateRepository.findByDate(localDateTime));
 
             if(appointmentDateEntity.isPresent() && appointmentDateEntity.get().isFree()) {
@@ -51,13 +51,13 @@ public class ClientService{
     private Client mapPhysicalClientToEntity(AddClientRequest addClientRequest, LocalDateTime appointmentDate) {
         return new Client(
                 appointmentDate,
-                addClientRequest.getName().substring(0, addClientRequest.getName().length() - 1),
-                addClientRequest.getEmail().substring(0, addClientRequest.getEmail().length() - 1),
-                addClientRequest.getPhone().substring(0, addClientRequest.getPhone().length() - 1),
-                addClientRequest.getAddress().substring(0, addClientRequest.getAddress().length() - 1),
-                addClientRequest.getServiceCategory(),
-                addClientRequest.getProblemDescription().substring(0, addClientRequest.getProblemDescription().length() - 1),
-                addClientRequest.getClientType(),
+                addClientRequest.name().substring(0, addClientRequest.name().length() - 1),
+                addClientRequest.email().substring(0, addClientRequest.email().length() - 1),
+                addClientRequest.phone().substring(0, addClientRequest.phone().length() - 1),
+                addClientRequest.address().substring(0, addClientRequest.address().length() - 1),
+                addClientRequest.serviceCategory(),
+                addClientRequest.problemDescription().substring(0, addClientRequest.problemDescription().length() - 1),
+                addClientRequest.clientType(),
                 null
         );
     }
@@ -65,14 +65,14 @@ public class ClientService{
     private Client mapCompanyClientToEntity(AddClientRequest addClientRequest) {
         return new Client(
                 null,
-                addClientRequest.getName().substring(1),
-                addClientRequest.getEmail().substring(1),
-                addClientRequest.getPhone().substring(1),
-                addClientRequest.getAddress().substring(1),
+                addClientRequest.name().substring(1),
+                addClientRequest.email().substring(1),
+                addClientRequest.phone().substring(1),
+                addClientRequest.address().substring(1),
                 null,
-                addClientRequest.getProblemDescription().substring(1),
-                addClientRequest.getClientType(),
-                addClientRequest.getNip()
+                addClientRequest.problemDescription().substring(1),
+                addClientRequest.clientType(),
+                addClientRequest.nip()
         );
     }
 
@@ -102,12 +102,12 @@ public class ClientService{
     }
 
     private Client updateExistingClient(Client existingClient, UpdateClientRequest updateClientRequest) {
-        existingClient.setName(updateClientRequest.getName());
-        existingClient.setEmail(updateClientRequest.getEmail());
-        existingClient.setPhone(updateClientRequest.getPhone());
-        existingClient.setAddress(updateClientRequest.getAddress());
-        existingClient.setDescription(updateClientRequest.getProblemDescription());
-        existingClient.setNip(updateClientRequest.getNip());
+        existingClient.setName(updateClientRequest.name());
+        existingClient.setEmail(updateClientRequest.email());
+        existingClient.setPhone(updateClientRequest.phone());
+        existingClient.setAddress(updateClientRequest.address());
+        existingClient.setDescription(updateClientRequest.problemDescription());
+        existingClient.setNip(updateClientRequest.nip());
         return existingClient;
     }
 

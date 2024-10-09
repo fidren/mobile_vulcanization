@@ -23,8 +23,8 @@ public class DateService{
 
     private AppointmentDate mapToEntity(AddDateRequest addDateRequest) {
         return new AppointmentDate(
-                addDateRequest.getDate(),
-                addDateRequest.getIsFree().equals("true")
+                addDateRequest.date(),
+                addDateRequest.isFree().equals("true")
         );
     }
 
