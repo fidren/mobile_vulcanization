@@ -24,7 +24,7 @@ class DateServiceTest {
     private DateRepository dateRepository;
 
     @InjectMocks
-    private DateServiceImpl dateService;
+    private DateService dateService;
 
     private AppointmentDate appointmentDate;
     private AddDateRequest addDateRequest;
