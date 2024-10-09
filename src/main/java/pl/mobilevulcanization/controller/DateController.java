@@ -33,8 +33,8 @@ public class DateController {
         return ResponseEntity.ok(datesList);
     }
 
-    @GetMapping("/allDates/free/current/{localDate}")
-    public ResponseEntity<List<AppointmentDate>> getAllFreeDatesByDate(@PathVariable("localDate") LocalDate date) {
+    @GetMapping("/allDates/free/from/{localDate}")
+    public ResponseEntity<List<AppointmentDate>> getAllFreeDatesFrom(@PathVariable("localDate") LocalDate date) {
         List<AppointmentDate> datesList = dateService.getAllFreeCurrentAppointmentDatesByDate(date);
         return ResponseEntity.ok(datesList);
     }

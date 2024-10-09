@@ -65,7 +65,7 @@ async function fetchAvailableTimes() {
     const localDate = document.getElementById("appointmentDate").value;
 
     if (localDate) {
-        const url = `http://localhost:8080/allDates/free/current/${localDate}`;
+        const url = `http://localhost:8080/allDates/free/from/${localDate}`;
 
         try {
             const response = await fetch(url);
