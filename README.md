@@ -42,7 +42,7 @@ Mobilna Wulkanizacja to aplikacja umożliwiająca zarządzanie usługami wulkani
     mvn spring-boot:run
 
     ```
-4. Aplikacja powinna być dostępna pod adresem http://localhost:8080.
+4. Aplikacja powinna być dostępna pod adresem http://localhost:8080, a admin panel powinien być dostępny po zalogowaniu pod adresem http://localhost:8080/login
 
 ## Konfiguracja bazy danych
 Projekt korzysta z bazy danych PostgreSQL.
