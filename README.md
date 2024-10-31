@@ -22,27 +22,32 @@ Mobilna Wulkanizacja to aplikacja umożliwiająca zarządzanie usługami wulkani
 - **Kontrola wersji**: Git
 
 ## Wymagania
-- Java 17 lub nowsza
+- Java 21 lub nowsza
 - Maven 3.6+ 
 - PostgreSQL
 
-## Instalacja i uruchomienie projektu
-1. Sklonuj repozytorium:
+## Instalacja i uruchomienie projektu z wykorzystaniem Dockera
+
+Aby uruchomić projekt z wykorzystaniem Dockera, wykonaj poniższe kroki:
+
+1. **Sklonuj repozytorium:**
     ```
     git clone https://github.com/twoje-uzytkownik/github-projekt.git
-
     ```
-2. Przejdź do katalogu projektu:
+
+2. **Przejdź do katalogu projektu:**
     ```
     cd mobilna-wulkanizacja
+    ```
 
+3. **Uruchom projekt przy użyciu Docker Compose:**
     ```
-3. Uruchom projekt przy użyciu Mavena:
+    docker-compose up --build
     ```
-    mvn spring-boot:run
 
-    ```
-4. Aplikacja powinna być dostępna pod adresem http://localhost:8080, a admin panel powinien być dostępny po zalogowaniu pod adresem http://localhost:8080/login
+4. **Dostęp do aplikacji:**
+   - Aplikacja będzie dostępna pod adresem: [http://localhost:8080](http://localhost:8080)
+   - Admin panel będzie dostępny po zalogowaniu pod adresem: [http://localhost:8080/login](http://localhost:8080/login)
 
 ## Konfiguracja bazy danych
 Projekt korzysta z bazy danych PostgreSQL.
