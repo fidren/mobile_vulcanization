@@ -17,43 +17,37 @@ Mobilna Wulkanizacja to aplikacja umożliwiająca zarządzanie usługami wulkani
 - **Backend**: Java, Spring Boot
 - **Frontend**: Html, CSS, Bootstrap, JavaScript
 - **Baza danych**: PostgreSQL
-- **Testy**: JUnit 5, Mockito, Spring Boot Test
+- **Testy**: JUnit 5, Mockito
 - **Build tool**: Maven
 - **Kontrola wersji**: Git
 
 ## Wymagania
-- Java 17 lub nowsza
+- Java 21 lub nowsza
 - Maven 3.6+ 
 - PostgreSQL
 
-## Instalacja i uruchomienie projektu
-1. Sklonuj repozytorium:
+## Instalacja i uruchomienie projektu z wykorzystaniem Dockera
+
+Aby uruchomić projekt z wykorzystaniem Dockera, wykonaj poniższe kroki:
+
+1. **Sklonuj repozytorium:**
     ```
     git clone https://github.com/twoje-uzytkownik/github-projekt.git
-
     ```
-2. Przejdź do katalogu projektu:
+
+2. **Przejdź do katalogu projektu:**
     ```
     cd mobilna-wulkanizacja
-
     ```
-3. Uruchom projekt przy użyciu Mavena:
+
+3. **Uruchom projekt przy użyciu Docker Compose:**
     ```
-    mvn spring-boot:run
-
+    docker-compose up --build
     ```
-4. Aplikacja powinna być dostępna pod adresem http://localhost:8080, a admin panel powinien być dostępny po zalogowaniu pod adresem http://localhost:8080/login
 
-## Konfiguracja bazy danych
-Projekt korzysta z bazy danych PostgreSQL.
-
-**Zaktualizuj plik application.properties lub application.yml z odpowiednimi ustawieniami bazy danych:**
-  ```
-  spring.datasource.url=jdbc:mysql://localhost:3306/vulcanization
-  spring.datasource.username=twoj_uzytkownik
-  spring.datasource.password=twoje_haslo
-  spring.jpa.hibernate.ddl-auto=update
-  ```
+4. **Dostęp do aplikacji:**
+   - Aplikacja będzie dostępna pod adresem: [http://localhost:8080](http://localhost:8080)
+   - Admin panel będzie dostępny po zalogowaniu pod adresem: [http://localhost:8080/login](http://localhost:8080/login)
 
 ## Uruchomienie testów
 **Aby uruchomić testy, użyj polecenia:**
