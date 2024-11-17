@@ -17,7 +17,7 @@ Mobilna Wulkanizacja to aplikacja umożliwiająca zarządzanie usługami wulkani
 - **Backend**: Java, Spring Boot
 - **Frontend**: Html, CSS, Bootstrap, JavaScript
 - **Baza danych**: PostgreSQL
-- **Testy**: JUnit 5, Mockito, Spring Boot Test
+- **Testy**: JUnit 5, Mockito
 - **Build tool**: Maven
 - **Kontrola wersji**: Git
 
@@ -48,17 +48,6 @@ Aby uruchomić projekt z wykorzystaniem Dockera, wykonaj poniższe kroki:
 4. **Dostęp do aplikacji:**
    - Aplikacja będzie dostępna pod adresem: [http://localhost:8080](http://localhost:8080)
    - Admin panel będzie dostępny po zalogowaniu pod adresem: [http://localhost:8080/login](http://localhost:8080/login)
-
-## Konfiguracja bazy danych
-Projekt korzysta z bazy danych PostgreSQL.
-
-**Zaktualizuj plik application.properties lub application.yml z odpowiednimi ustawieniami bazy danych:**
-  ```
-  spring.datasource.url=jdbc:mysql://localhost:3306/vulcanization
-  spring.datasource.username=twoj_uzytkownik
-  spring.datasource.password=twoje_haslo
-  spring.jpa.hibernate.ddl-auto=update
-  ```
 
 ## Uruchomienie testów
 **Aby uruchomić testy, użyj polecenia:**
