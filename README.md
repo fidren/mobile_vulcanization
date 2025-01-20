@@ -32,7 +32,7 @@ Aby uruchomić projekt z wykorzystaniem Dockera, wykonaj poniższe kroki:
 
 1. **Sklonuj repozytorium:**
     ```
-    git clone https://github.com/twoje-uzytkownik/github-projekt.git
+    git clone https://github.com/fidren/mobile_vulcanization
     ```
 
 2. **Przejdź do katalogu projektu:**
