@@ -1,75 +1,74 @@
-# Mobilna Wulkanizacja
+# Mobile Vulcanization
 
-## Opis projektu
-Mobilna Wulkanizacja to aplikacja umożliwiająca zarządzanie usługami wulkanizacyjnymi, takimi jak umawianie terminów serwisowych, aktualizacja danych klientów oraz oferowanie usług dla klientów indywidualnych i firmowych. Projekt ma na celu usprawnienie procesu zarządzania terminami oraz obsługę klientów poprzez interfejs RESTful API.
+## Project Description
+Mobile Vulcanization is an application that enables the management of vulcanization services, such as scheduling service appointments, updating client information, and offering services for both individual and corporate clients. The project aims to streamline the appointment management process and customer service through a RESTful API interface.
 
-## Funkcjonalności z poziomu Admin panelu
-- **Zarządzanie klientami** – możliwość dodawanie, aktualizowania, usuwania i fltrowania klientów indywidualnych i firmowych.
-- **Zarządzanie terminami** – dodawanie, aktualizowanie i usuwanie terminów serwisowych.
-- **Przeglądanie dostępnych terminów** – filtrowanie i przeglądanie dostępnych terminów serwisowych
+## Admin Panel Features
+- **Client Management** – the ability to add, update, delete, and filter individual and corporate clients.
+- **Appointment Management** – adding, updating, and deleting service appointments.
+- **Viewing Available Appointments** – filtering and viewing available service appointments.
 
-## Funkcjonalności z poziomu Klienta
-- **Umawianie Wizyt** – możliwość umuwienia wizyt zarówno przez klientów indywidualnych, jak i firmowych.
-- **Przeglądanie dostępnych terminów** – filtrowanie i przeglądanie dostępnych terminów serwisowych przez klientów indywidualnych podczas umawiania wizyty.
-- **Wybór kategorii oraz Opis problemu** – wybór kategorii usług oraz szczegółowe opisywanie problemów.
+## Client Features
+- **Scheduling Appointments** – the ability to schedule appointments for both individual and corporate clients.
+- **Viewing Available Appointments** – filtering and viewing available service appointments during the scheduling process.
+- **Service Category Selection and Problem Description** – selecting service categories and providing detailed problem descriptions.
 
-## Technologie
+## Technologies
 - **Backend**: Java, Spring Boot
-- **Frontend**: Html, CSS, Bootstrap, JavaScript
-- **Baza danych**: PostgreSQL
-- **Testy**: JUnit 5, Mockito
-- **Build tool**: Maven
-- **Kontrola wersji**: Git
+- **Frontend**: HTML, CSS, Bootstrap, JavaScript
+- **Database**: PostgreSQL
+- **Testing**: JUnit 5, Mockito
+- **Build Tool**: Maven
+- **Version Control System**: Git
 
-## Wymagania
-- Java 21 lub nowsza
-- Maven 3.6+ 
+## Requirements
+- Java 21 or newer
+- Maven 3.6+
 - PostgreSQL
 
-## Instalacja i uruchomienie projektu z wykorzystaniem Dockera
+## Installation and Running the Project with Docker
 
-Aby uruchomić projekt z wykorzystaniem Dockera, wykonaj poniższe kroki:
+To run the project using Docker, follow these steps:
 
-1. **Sklonuj repozytorium:**
+1. **Clone the repository:**
     ```
     git clone https://github.com/fidren/mobile_vulcanization
     ```
 
-2. **Przejdź do katalogu projektu:**
+2. **Navigate to the project directory:**
     ```
     cd mobilna-wulkanizacja
     ```
 
-3. **Uruchom projekt przy użyciu Docker Compose:**
+3. **Run the project using Docker Compose:**
     ```
     docker-compose up --build
     ```
 
-4. **Dostęp do aplikacji:**
-   - Aplikacja będzie dostępna pod adresem: [http://localhost:8080](http://localhost:8080)
-   - Admin panel będzie dostępny po zalogowaniu pod adresem: [http://localhost:8080/login](http://localhost:8080/login)
+4. **Access the application:**
+   - The application will be available at: [http://localhost:8080](http://localhost:8080)
+   - The admin panel will be accessible after logging in at: [http://localhost:8080/login](http://localhost:8080/login)
 
-## Uruchomienie testów
-**Aby uruchomić testy, użyj polecenia:**
+## Running Tests
+**To run the tests, use the command:**
  ```
     mvn test
-
  ```
 
 ## API Endpoints
-| Metoda HTTP | Endpoint | Opis |
+| HTTP Method | Endpoint | Description |
 | --- | --- | --- |
-| GET |	/allClients | Pobierz wszystkich klientów |
-| GET |	/filteredClients | Pobierz wyfiltrowanych klientów |
-| POST | /addClient |	Dodaj nowego klienta |
-| PUT	| /client/{clientId}/update |	Aktualizuj informacje o kliencie |
-| DELETE | /client/{clientId}/delete |	Usuń klienta |
-| GET |	/allDates | Pobierz wszystkie terminy |
-| GET |	/filteredDates | Pobierz wyfiltrowane terminy |
-| GET |	/allDates/free/current/{localDate} | Pobierz wolne terminy według daty |
-| POST | /addDate | Dodaj nowy termin |
-| PUT | /date/{localDate}/update | Aktualizuj status terminu |
-| DELETE | /date/{localDate}/delete | Usuń termin |
+| GET | /allClients | Get all clients |
+| GET | /filteredClients | Get filtered clients |
+| POST | /addClient | Add a new client |
+| PUT | /client/{clientId}/update | Update client information |
+| DELETE | /client/{clientId}/delete | Delete a client |
+| GET | /allDates | Get all appointments |
+| GET | /filteredDates | Get filtered appointments |
+| GET | /allDates/free/current/{localDate} | Get available appointments by date |
+| POST | /addDate | Add a new appointment |
+| PUT | /date/{localDate}/update | Update appointment status |
+| DELETE | /date/{localDate}/delete | Delete an appointment |
 
-## Autor
-**Wojciech Mikula** - główny twórca projektu
+## Author
+**Wojciech Mikula** - main project creator
