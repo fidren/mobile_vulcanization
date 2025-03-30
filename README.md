@@ -37,7 +37,7 @@ To run the project using Docker, follow these steps:
 
 2. **Navigate to the project directory:**
     ```
-    cd mobilna-wulkanizacja
+    cd mobile_vulcanization
     ```
 
 3. **Run the project using Docker Compose:**
